@@ -1,4 +1,4 @@
-import { DomElements, UserRoutineAction, UserRoutineActionString, UserRoutineOptions, UserRoutineReturn } from './user-routine.d';
+import { UserRoutineAction, UserRoutineActionString, UserRoutineOptions, UserRoutineReturn } from './user-routine.d';
 
 export async function userRoutine(actions: UserRoutineAction[] | string, options: UserRoutineOptions = {}): Promise<UserRoutineReturn> {
 
@@ -42,7 +42,7 @@ export async function userRoutine(actions: UserRoutineAction[] | string, options
   }
 
   let clickableTextElement: HTMLElement | undefined = undefined;
-  const domElements: DomElements = {
+  const domElements: {[elementName: string]: HTMLElement} = {
     arrow: undefined,
     arrowShadow: undefined,
     focusBox: undefined,

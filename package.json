@@ -8,12 +8,12 @@
     "test": "test"
   },
   "scripts": {
-    "build": "npm run build:lib && npm run build:blob && npm run build:template && npm run build:demo",
-    "build:blob": "webpack --config webpack.config.blob.cjs",
-    "build:demo": "node utils/update-demo-pre.cjs && webpack --config webpack.config.demo.cjs && node utils/update-demo-post.cjs",
-    "build:lib": "webpack --config webpack.config.min.cjs",
-    "build:local": "npm run build:lib && npm run build:demo",
-    "build:template": "node utils/make-template.mjs"
+    "build": "npm run build-lib && npm run build-blob && npm run build-template && npm run build-demo",
+    "build-blob": "webpack --config webpack.config.blob.cjs",
+    "build-demo": "node utils/update-demo-pre.cjs && webpack --config webpack.config.demo.cjs && node utils/update-demo-post.cjs",
+    "build-lib": "webpack --config webpack.config.min.cjs",
+    "build-local": "npm run build-lib && npm run build-demo",
+    "build-template": "node utils/make-template.mjs"
   },
   "repository": {
     "type": "git",
