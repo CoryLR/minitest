@@ -1015,3 +1015,91 @@ export async function userRoutine(actions: UserRoutineAction[] | string, options
   }
 
 }
+
+export class UserRoutine {
+
+  /* Parameters */
+  actions: UserRoutineAction[] | string;
+  options: UserRoutineOptions;
+
+  config: Readonly<Required<UserRoutineOptions>>;
+
+  /* State */
+  state = {
+    paused: false,
+    errorOccurred: false,
+    continueActions: true,
+    documentKeyDownSet: false,
+    nextButtonPressed: false,
+    currentStep: 0,
+  }
+
+  clickableTextElement: HTMLElement | undefined = undefined;
+
+  domElements: {[elementName: string]: HTMLElement} = {
+    arrow: undefined,
+    arrowShadow: undefined,
+    focusBox: undefined,
+    message: undefined,
+    style: undefined,
+    tooltip: undefined,
+    tooltipShadow: undefined,
+    nextButton: undefined,
+    playButton: undefined,
+    pauseButton: undefined,
+    stopButton: undefined,
+    status: undefined,
+  }
+
+  /* Constants */
+  NumConfig = Object.freeze({
+    ANIMATION_FADE_TIME: 150,
+    COMPREHEND_ACTION_RESULT_TIME: 500, // Time given to comprehend a visual change on the page
+    FIND_TOOLTIP_TIME: 500, // Time it takes for eye movement to begin (200ms) plus movement duration (est. 300-500ms)
+    READ_TIME_PER_LETTER: 40, // Average reading speed is one letter per 30ms in sentences, extra time given for content complexity
+    MAX_READ_TIME: 3000,
+    ANIMATION_TOOLTIP_MAX_WIDTH: 200,
+  });
+
+
+  constructor(actions: UserRoutineAction[] | string, options: UserRoutineOptions = {}) {
+    this.actions = actions;
+    this.options = options;
+    this.config = this.getConfigurations(this.options);
+  }
+
+
+
+  
+  getConfigurations(options: UserRoutineOptions): Required<UserRoutineOptions> {
+
+    const defaultConfig = {
+      awaitTimeout: 15000,
+      continueOnFailure: false,
+      displayMessage: true,
+      displayProgress: true,
+      displaySpeed: 1,
+      globalDelay: 500,
+      keyboardControls: true,
+      logCollapse: false,
+      logProgress: true,
+      logResult: true,
+      message: 'User-Routine',
+      messageAttribution: 'User-Routine',
+      overrideCss: '',
+      separator: ' ',
+      simultaneousAllowed: false,
+      tutorialMode: false,
+    };
+    if (options.tutorialMode === true && options.displayProgress === false) {
+      options.displayProgress = true;
+      console.warn(`[User-Routine] WARN: 'displayProgress' changed to 'true' because 'tutorialMode' is enabled`);
+    };
+    if (options.tutorialMode === true && options.keyboardControls === true) {
+      options.keyboardControls = false;
+      console.warn(`[User-Routine] WARN: 'keyboardControls' changed to 'false' because 'tutorialMode' is enabled`);
+    };
+    return Object.freeze({ ...defaultConfig, ...options });
+  }
+
+}
