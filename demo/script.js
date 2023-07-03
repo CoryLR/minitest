@@ -11,6 +11,11 @@ import { userRoutine } from '../dist/user-routine.min';
 import { runRegressionTests } from './regression-tests';
 import { codeCardFunctionArray } from './code-cards.min';
 
+import { routine } from '../dist/user-routine-v6.min.js';
+
+setTimeout(() => {console.log('routine', routine)}, 500);
+setTimeout(routine.v6Test, 1000);
+
 const state = {
   processTime: 2000,
   actionStringIdCounter: 0,

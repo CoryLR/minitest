@@ -1,7 +1,7 @@
 
-# User-Routine
+# User Routine
 
-User-Routine is a JavaScript library to automate user routines on web pages. You can easily test features or create tutorials with actions such as click, await, and fill.
+User Routine is a JavaScript library to automate user routines on web pages. You can easily test features or create tutorials with actions such as click, await, and fill.
 
 ✨ See the [Live Demo](https://corylr.github.io/user-routine/) ✨
 
@@ -19,7 +19,7 @@ userRoutine([
 
 **Table of Contents**
 
-- [User-Routine](#user-routine)
+- [User Routine](#user-routine)
 - [Access](#access)
 - [Usage](#usage)
   - [Simple Examples](#simple-examples)
@@ -34,6 +34,8 @@ userRoutine([
   - [Maintainers](#maintainers)
     - [Getting Started](#getting-started)
     - [Continuous Development](#continuous-development)
+  - [Version 6 Notes](#version-6-notes)
+    - [API brainstorming](#api-brainstorming)
 
 # Access
 
@@ -47,7 +49,7 @@ import { userRoutine } from 'user-routine';
 const { userRoutine } = require('user-routine');
 ```
 
-**2.** Or include the User-Routine script file (`user-routine.blob.js`) in your HTML:
+**2.** Or include the User Routine script file (`user-routine.blob.js`) in your HTML:
 
 ```html
 <!-- Declares function `userRoutine` (CDN) -->
@@ -65,7 +67,7 @@ const { userRoutine } = require('user-routine');
 
 # Usage
 
-User-Routine is served as a function named `userRoutine`.
+User Routine is served as a function named `userRoutine`.
 
 ## Simple Examples
 
@@ -166,11 +168,11 @@ function userRoutine(actions: *string[] OR string*, options: *UserRoutineOptions
   * `logCollapse`: (*default: false*) Initializes the console group collapsed
   * `logProgress`: (*default: true*) Show real-time progress in the browser console
   * `logResult`: (*default: true*) Show the final result in the browser console
-  * `message`: (*default: 'User-Routine'*) Label to show in the console and in the DOM
-  * `messageAttribution`: (*default: 'User-Routine'*) Subtitle text shown when custom message is provided
-  * `overrideCss`: (*default: ''*) Override default User-Routine CSS, target classes such as .user-routine-message, .user-routine-focus-box, or .user-routine-tooltip
+  * `message`: (*default: 'User Routine'*) Label to show in the console and in the DOM
+  * `messageAttribution`: (*default: 'User Routine'*) Subtitle text shown when custom message is provided
+  * `overrideCss`: (*default: ''*) Override default User Routine CSS, target classes such as .user-routine-message, .user-routine-focus-box, or .user-routine-tooltip
   * `separator`: (*default: ' ' (space)*) Choose different text to separate the different parts of the action string. For example, with `separator` set to `'; '`, you could write an action string like `'await; .container div[name="Result Box"]; Result Text'`.
-  * `simultaneousAllowed`: (*default: false*) Allow the User-Routine to run even if one is already running
+  * `simultaneousAllowed`: (*default: false*) Allow the User Routine to run even if one is already running
   * `tutorialMode`: (*default: false*) Add a "Next" button to tooltips, and only show tooltips for "log" and "comment" actions
 
 ## Output Details
@@ -180,7 +182,7 @@ function userRoutine(actions: *string[] OR string*, options: *UserRoutineOptions
 * Updates are also logged to the browser console like so:
 
 ```
-[User-Routine] Message
+[User Routine] Message
   * Filled the value of form>input.name to 'Cory'
   * Clicked on button[type="submit"]
   * Awaiting 'div.success-message'...
@@ -310,11 +312,186 @@ To publish:
 
 TO DO:
 
-* [ ] Add a tutorial walk-through to the demo page, using User-Routine to showcase User-Routine
+* [ ] Add a tutorial walk-through to the demo page, using User Routine to showcase User Routine
 * [ ] Improve tutorialMode by automating progress via `await` and other actions instead of relying on the Next button
 * [ ] Separate actions into externally-callable functions
 * [ ] Add global case-sensitivity option
 * [ ] (Maybe) Add count action to count instances of a particular CSS selector
 * [ ] (Maybe) Add copy/paste actions
-* [ ] (Maybe) Add ability to keybind User-Routine(s) to keys
+* [ ] (Maybe) Add ability to keybind User Routine(s) to keys
 * [ ] (Maybe) Add copy/paste actions
+
+## Version 6 Notes
+
+Targeted features:
+
+* Typescript
+* Use OOP builder pattern (inspiration: Zod, Leaflet)
+* Session storage for multi-page user routines
+
+### API brainstorming
+
+```typescript
+
+/* Thoughts 2023-06-18 */
+
+import { routine } from 'user-routine'
+
+routine.test('Should show all actions')
+  .valueIs('input', 'value')
+  .valueIsNot('input', 'value')
+  .exists('selector', 'text?')
+  .existsNot('selector', 'text?')
+  .click('selector', 'text?')
+  .await('selector', 'text?')
+  .awaitNot('selector', 'text?')
+  .fill('selector', 'value')
+  .comment('selector', 'message')
+  .log('message')
+  .nav('url')
+
+  .run(); /* async */
+  .toJSON()
+
+routine.tutorial()
+
+routine.actions()
+  .click()
+  .run()
+
+routine.run.click()
+
+routine.run([
+  routineOne,
+  routineTwo
+])
+
+// maybe .start or .run at the end?
+routine.test()
+  .stuff()
+  .run() // or .start()
+
+// or maybe use action set
+
+let actionSet = routine.actionSet('Do thing')
+  .click()
+  .write()
+
+routine.test('Should y')
+  .include(actionSet)
+  .run()
+
+// Exec form, also useful for routine storage and transfer
+
+const actions = [
+  ['write', 'input', 'hi'],
+  ['click', '.btn'],
+]
+
+routine.load({
+  type: 'test',
+  name: 'Should x',
+  currentStep: 4,
+  options: { ... },
+  actions: [ ... ],
+  log: [ ... ],
+  success: null,
+  version: '6.0.0',
+})
+
+
+/******** Initial thoughts ********/
+import user from 'user-routine';
+
+/* Before: */
+userRoutine([
+  'fill input.text Hey',
+  'fill input.count 3',
+  'click button.duplicate',
+  'exists .output Hey Hey Hey',
+  'log Done!',
+], { message: 'Test a Feature' });
+/* After: */
+user.routine('Test a feature')
+  .fill('input.text', 'Hey')
+  .fill('input.count', 3)
+  .click('button.duplicate')
+  .checkExists('.output', 'Hey Hey Hey') /* Change "exists" to "checkExists" perhaps */
+  .comment('Done!'); /* Change "log" to "comment" perhaps */
+
+
+/* Before: */
+userRoutine([
+  'log Welcome to the demo',
+  'comment .code-carousel Examples',
+  'comment nav Links to docs & more',
+], {
+  message: 'Display a Tutorial',
+  tutorialMode: true,
+});
+/* After: */
+user.tutorial('Display a Tutorial')
+  .comment('Welcome to the demo') /* Change "log" to "comment" perhaps */
+  .commentOn('.code-carousel', 'Examples')
+  .commentOn('nav', 'Links to docs & more');
+
+
+/* Before: */
+userRoutine([
+  'click .does-not-exist',
+  'value .count fake-number',
+  'exists nav>>button Fake Link',
+], {
+  message: 'Examples of Failure',
+  continueOnFailure: true,
+});
+/* After: */
+user.routine('Examples of Failure', { continueOnFailure: true })
+  .click('.does-not-exist')
+  .checkValue('.count', 'fake-number')
+  .checkExists('nav button', 'Fake Link Text');
+
+
+/* Before: */
+userRoutine([
+  'exists p.some-class', // Checks for the existence of this element
+  'exists p.some-class With certain text', // Also checks if it includes certain text
+  '!exists p.some-class', // Validates that the element does not exist
+  '!exists p.some-class With certain text', // Validates that the element does not exist with certain text
+  'value input.required', // Validates that the element has any value
+  'value input.name Jane Doe', // Validates that the element has a value of "Jane Doe"
+]);
+/* After: */
+user.routine()
+  .checkExists('p.some-class')
+  .checkExists('p.some-class', 'With certain text')
+  .checkDoesNotExist('p.some-class')
+  .checkDoesNotExist('p.some-class', 'With certain text')
+  .checkHasValue('input.required')
+  .checkHasValue('input.required', 'Jane')
+  .checkDoesNotHaveValue('input.required')
+  .checkDoesNotHaveValue('input.required', 'Jane')
+
+
+/* Solo calls options */
+user.action.click('.someForm button', 'Submit');
+user.act.click('.someForm button', 'Submit');
+user.perform.click('.someForm button', 'Submit');
+user.execute.click('.someForm button', 'Submit');
+user.exec.click('.someForm button', 'Submit');
+user.do.click('.someForm button', 'Submit');
+user.simulate.click('.someForm button', 'Submit');
+user.click('.someForm button', 'Submit');
+
+/*
+Maybe `action` can be the base class for `routine` and `tutorial`
+that holds all the base functions
+
+I could make `user` the base class so you can do user.click(), but
+I would want the type hints for user. to only be .routine and .tutorial
+*/
+
+
+```
+
+

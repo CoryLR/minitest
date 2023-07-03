@@ -3,5 +3,11 @@
     "lib": ["dom", "dom.iterable", "es2015"],
     "module": "es6",
     "target": "es6"
-  }
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+  ],
 }

@@ -13,7 +13,9 @@
     "build-demo": "node utils/update-demo-pre.cjs && webpack --config webpack.config.demo.cjs && node utils/update-demo-post.cjs",
     "build-lib": "webpack --config webpack.config.min.cjs",
     "build-local": "npm run build-lib && npm run build-demo",
-    "build-template": "node utils/make-template.mjs"
+    "build-template": "node utils/make-template.mjs",
+    "build-v6": "webpack --config webpack.config.v6.min.cjs",
+    "build-v6-demo": "node utils/update-demo-pre.cjs && webpack --config webpack.config.demo.cjs && node utils/update-demo-post.cjs"
   },
   "repository": {
     "type": "git",
@@ -50,6 +52,7 @@
     "minify": "^9.1.0",
     "node-html-parser": "^6.1.1",
     "open": "^8.4.0",
+    "raw-loader": "^4.0.2",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.4.1",
     "typescript": "^4.8.4",

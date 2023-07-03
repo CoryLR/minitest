@@ -1,4 +1,4 @@
-import { UserRoutineAction, UserRoutineActionString, UserRoutineOptions, UserRoutineReturn } from './user-routine.d';
+import { UserRoutineAction, UserRoutineActionString, UserRoutineOptions, UserRoutineReturn } from './user-routine.d.x';
 
 export async function userRoutine(actions: UserRoutineAction[] | string, options: UserRoutineOptions = {}): Promise<UserRoutineReturn> {
 
