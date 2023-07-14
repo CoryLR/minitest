@@ -1,3 +1,5 @@
+import { Time } from "./Time";
+
 export class DomUtil {
 
   public static getElement(selector: string, textConstraint?: string): HTMLElement | undefined {
@@ -57,9 +59,22 @@ export class DomUtil {
     return true;
   }
 
-  public static checkValueMatch(element: HTMLInputElement, value: string): boolean {
-    if(element.value === undefined) return false;
+  public static checkValueMatch(element: HTMLInputElement, value?: string): boolean {
     return element.value === value;
+  }
+
+  public static checkVisible(element: HTMLElement): boolean {
+    const rect = element.getBoundingClientRect();
+    const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+    return rect.bottom < viewHeight && rect.top > 0;
+  }
+
+  public static async scrollIntoViewIfNeeded(element: HTMLElement, options: ScrollIntoViewOptions = { behavior: 'smooth' }): Promise<boolean>  {
+    if (!this.checkVisible(element)) {
+      element.scrollIntoView(options);
+      await Time.sleep(700);
+      return true;
+    }
   }
 
 }

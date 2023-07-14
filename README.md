@@ -36,6 +36,8 @@ userRoutine([
     - [Continuous Development](#continuous-development)
   - [Version 6 Notes](#version-6-notes)
     - [API brainstorming](#api-brainstorming)
+  - [Progress \& To Do](#progress--to-do)
+  - [Custom framework](#custom-framework)
 
 # Access
 
@@ -338,17 +340,17 @@ Targeted features:
 import { routine } from 'user-routine'
 
 routine.test('Should show all actions')
-  .valueIs('input', 'value')
-  .valueIsNot('input', 'value')
-  .exists('selector', 'text?')
-  .existsNot('selector', 'text?')
-  .click('selector', 'text?')
   .await('selector', 'text?')
   .awaitNot('selector', 'text?')
-  .fill('selector', 'value')
+  .click('selector', 'text?')
   .comment('selector', 'message')
+  .exists('selector', 'text?')
+  .existsNot('selector', 'text?')
+  .fill('selector', 'value')
   .log('message')
   .nav('url')
+  .valueIs('input', 'value')
+  .valueIsNot('input', 'value')
 
   .run(); /* async */
   .toJSON()
@@ -494,4 +496,17 @@ I would want the type hints for user. to only be .routine and .tutorial
 
 ```
 
+## Progress & To Do
 
+- 
+
+## Custom framework
+
+I basically made my own mini custom UI framework when writing the UI elements for User Routine. Maybe I should give it a name and publish it separately?
+
+Potential names:
+
+* Hummingbird (Hummingbird Framework)
+* Lil' Framework (lol)
+  * CLI: `npx lf init`, `npx lf new component components/NAME`
+* 

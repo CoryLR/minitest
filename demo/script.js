@@ -13,8 +13,8 @@ import { codeCardFunctionArray } from './code-cards.min';
 
 import { routine } from '../dist/user-routine-v6.min.js';
 
-setTimeout(() => {console.log('routine', routine)}, 500);
-setTimeout(routine.v6Test, 1000);
+const testObj = routine.devTest('test').click('.btn');
+console.log('test', testObj);
 
 const state = {
   processTime: 2000,

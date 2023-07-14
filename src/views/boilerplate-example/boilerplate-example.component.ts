@@ -1,6 +1,6 @@
 import { BaseComponent } from '../BaseComponent';
-import * as css from './boilerplate-example.component.css';
-import * as html from './boilerplate-example.component.html';
+import html from './boilerplate-example.component.html';
+import css from './boilerplate-example.component.css';
 
 /**
  * User Routine Component
@@ -9,7 +9,7 @@ import * as html from './boilerplate-example.component.html';
 export class BoilerplateExampleComponent extends BaseComponent {
 
   /* Use this.element to target the component HTML container any time after the constructor's super() method call */
-  exampleMessage = this.element.querySelector('.boilerplate-example-message');
+  exampleMessage = this.element.querySelector('.example-message');
 
   constructor() {
     super(html, css);

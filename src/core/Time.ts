@@ -20,12 +20,21 @@ export class Time {
    */
   public static async loop(duration: number, interval: number, action: Function, stopValue = null): Promise<boolean> {
     const loopCount = Math.floor(duration / interval);
-    if ( await action() === stopValue ) return true;
+    if ( action() === stopValue ) return true;
     for (let i = 0; i < loopCount; i++) {
-      Time.sleep(interval);
-      if ( await action() === stopValue ) return true;
+      await Time.sleep(interval);
+      if ( action() === stopValue ) return true;
     }
     return false
   }
 
+  // Recreate a basic/simple observable so that something can happen when something else finishes asynchronously
+  // public static pinkyPromise() {
+
+  // }
+
 }
+
+// class OpenPromise extends Promise {
+
+// }

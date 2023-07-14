@@ -24,4 +24,8 @@ module.exports = {
     path: path.resolve(__dirname, 'docs/'),
     filename: 'main.js',
   },
+  performance: {
+    maxEntrypointSize: 3_000_000,
+    maxAssetSize: 3_000_000,
+  }
 };

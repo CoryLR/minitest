@@ -2,7 +2,8 @@
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "es2015"],
     "module": "es6",
-    "target": "es6"
+    "target": "es6",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "include": [
     "./src/**/*"

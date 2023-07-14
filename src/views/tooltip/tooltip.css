@@ -1,4 +1,74 @@
-
-* {
-  background-color: skyblue'
+.user-routine-focus-box {
+  z-index: 9997;
+  visibility: hidden;
+  position: absolute;
+  background-color: rgba(255,255,255,0.2);
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px rgb(0,0,0);
+  pointer-events: none;
+}
+.user-routine-tooltip {
+  z-index: 9999;
+  visibility: hidden;
+  font: 14px Arial;
+  position: absolute;
+  background-color: rgb(245,245,245);
+  color: black;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 200px;
+}
+.user-routine-tooltip-error {
+  color: darkred;
+}
+.user-routine-arrow {
+  z-index: 9999;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid rgb(245,245,245); 
+}
+.user-routine-arrow-shadow {
+  z-index: 9998;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-bottom: 14px solid rgb(180,180,180);
+  margin: -3px 0 0 -4px;
+}
+.user-routine-tooltip-shadow {
+  z-index: 9998;
+  color: transparent;
+  border: 2px solid rgb(180,180,180);
+  background-color: rgb(180,180,180);
+  margin: -2px 0 0 -2px;
+  border-radius: 12px;
+}
+.user-routine-tooltip .user-routine-next-button {
+  display: block;
+  margin: 5px auto 0 auto;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: rgb(220,220,220);
+  border-width: 0;
+  cursor: pointer;
+}
+.user-routine-fade-in {
+  visibility: visible;
+  animation: userRoutineFadeIn 150ms; 
+}
+.user-routine-fade-out {
+  opacity: 0;
+  animation: userRoutineFadeOut 150ms; 
+}
+@keyframes userRoutineFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes userRoutineFadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }

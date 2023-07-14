@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: './src/user-routine.ts',
+  entry: './test/dev.ts',
   module: {
     rules: [
       {
@@ -10,7 +10,7 @@ module.exports = {
         use: [{
           loader: 'raw-loader',
         }],
-        include: path.resolve(__dirname, './src/'),
+        include: path.resolve(__dirname, './test/'),
         exclude: /node_modules/,
       },
       {
@@ -18,7 +18,7 @@ module.exports = {
         use: [{
           loader: 'raw-loader',
         }],
-        include: path.resolve(__dirname, './src/'),
+        include: path.resolve(__dirname, './test/'),
         exclude: /node_modules/,
       },
       {
@@ -29,7 +29,7 @@ module.exports = {
             configFile: "tsconfig.json"
           }
         },
-        include: path.resolve(__dirname, './src/'),
+        include: path.resolve(__dirname, './test/'),
         exclude: /node_modules/,
       },
     ],
@@ -38,8 +38,8 @@ module.exports = {
     extensions: ['.ts', '.html', '.css'],
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'user-routine-v6.min.js',
+    path: path.resolve(__dirname, 'test'),
+    filename: 'dev.js',
     library: {
       type: 'commonjs-static',
     },
