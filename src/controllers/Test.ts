@@ -1,5 +1,5 @@
-import { ActionExpression, Manifest } from "../models/manifest";
-import { UserRoutineOptions } from "../models/rountine-config";
+import { ActionExpression } from "../models/action";
+import { Manifest, UserRoutineOptions } from "../models/routine";
 import { BaseRoutine } from "./BaseRoutine";
 
 export class Test extends BaseRoutine {
@@ -23,6 +23,7 @@ export class Test extends BaseRoutine {
     for (const action of this.manifest.actions) {
       await this.performAction(action);
     }
+    return 
   }
 
   private async performAction(action: ActionExpression) {

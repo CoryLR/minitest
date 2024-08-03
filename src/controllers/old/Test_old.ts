@@ -1,7 +1,6 @@
 import { Action } from "../../core/Action";
-import { Time } from "../../core/Time";
-import { ActionExpression, Manifest } from "../../models/manifest";
-import { DEFAULT_ROUTINE_CONFIG, UserRoutineConfig, UserRoutineOptions } from "../../models/rountine-config";
+import { ActionExpression } from "../../models/action";
+import { DEFAULT_ROUTINE_CONFIG, UserRoutineConfig, UserRoutineOptions } from "../../models/routine";
 import { ActionSet } from "../ActionSet";
 
 export class Test extends ActionSet {
@@ -40,9 +39,9 @@ export class Test extends ActionSet {
     }
   }
 
-  private async executeAction(actionExpression: ActionExpression) {
+  private async executeAction(action: ActionExpression) {
     await this.beforeEach();
-    const result = await Action[actionExpression.action](...actionExpression.args);
+    const result = await Action[action.name](...action.args);
     await this.afterEach();
   }
 

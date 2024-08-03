@@ -1,3 +1,4 @@
+import { ActionExpression } from "./action";
 import { Mutable } from "./mutable";
 
 export type UserRoutineConfig = typeof DEFAULT_ROUTINE_CONFIG;
@@ -12,8 +13,8 @@ export const DEFAULT_ROUTINE_CONFIG = Object.freeze({
   awaitTimeout: 15_000, // milliseconds
   continueOnFailure: false,
   displayLabel: true, // displayMessage: true,
-  displayProgress: true,
-  displaySpeed: 1,
+  displayProgress: true, // show what User Routine is doing in the UI
+  displaySpeed: 1, // scaling factor
   globalDelay: 500, // milliseconds
   keyboardControls: true,
   logCollapse: false,
@@ -21,3 +22,14 @@ export const DEFAULT_ROUTINE_CONFIG = Object.freeze({
   logResult: true,
   overrideCss: '',
 });
+
+export interface Manifest {
+  label: string;
+  actions: ActionExpression[];
+  config: UserRoutineConfig;
+  log: string[];
+}
+
+export type UserRoutineResult = Pick<Manifest, 'log' | 'config'> & {
+  success: boolean;
+};

@@ -1,7 +1,6 @@
 import { Action } from "../core/Action";
-import { ActionResult } from "../models/action";
-import { ActionExpression, Manifest } from "../models/manifest";
-import { DEFAULT_ROUTINE_CONFIG, UserRoutineOptions } from "../models/rountine-config";
+import { ActionExpression, ActionResult } from "../models/action";
+import { DEFAULT_ROUTINE_CONFIG, Manifest, UserRoutineOptions } from "../models/routine";
 import { ActionSet } from "./ActionSet";
 
 export class BaseRoutine extends ActionSet {

@@ -1,5 +1,5 @@
 import { ActionResult } from "../models/action";
-import { DEFAULT_ROUTINE_CONFIG } from "../models/rountine-config";
+import { DEFAULT_ROUTINE_CONFIG } from "../models/routine";
 import { DomUtil } from "./DomUtil";
 import { Time } from "./Time";
 import { round } from "./miscelanneous-util";

@@ -13,8 +13,14 @@ import { codeCardFunctionArray } from './code-cards.min';
 
 import { routine } from '../dist/user-routine-v6.min.js';
 
-const testObj = routine.devTest('test').click('.btn');
-console.log('test', testObj);
+
+async function devTest() {
+  const testResult = await routine.test('test').click('.btn');
+  console.log('testResult', testResult);
+  
+  console.log('\n\n\n');  
+}
+devTest();
 
 const state = {
   processTime: 2000,

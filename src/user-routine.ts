@@ -2,7 +2,7 @@
 import { BaseRoutine } from "./controllers/BaseRoutine";
 import { Test } from "./controllers/old/Test_old";
 import { Tutorial } from "./controllers/Tutorial";
-import { UserRoutineOptions } from "./models/rountine-config";
+import { UserRoutineOptions } from "./models/routine";
 import { BoilerplateExampleComponent } from "./views/boilerplate-example/boilerplate-example.component";
 
 export function test(name: string, options?: UserRoutineOptions) {
