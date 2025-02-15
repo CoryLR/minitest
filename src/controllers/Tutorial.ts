@@ -1,5 +1,5 @@
-import { BaseRoutine } from "./BaseRoutine";
+import { Routine } from "./Routine";
 
-export class Tutorial extends BaseRoutine {
+export class Tutorial extends Routine {
   
 }

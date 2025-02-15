@@ -1,5 +1,5 @@
 
-import { BaseRoutine } from "./controllers/BaseRoutine";
+import { Routine } from "./controllers/Routine";
 import { Test } from "./controllers/old/Test_old";
 import { Tutorial } from "./controllers/Tutorial";
 import { UserRoutineOptions } from "./models/routine";
@@ -13,7 +13,7 @@ export function test(name: string, options?: UserRoutineOptions) {
 export const routine = {
 
   devTest: (label, options) => {
-    return new BaseRoutine(label, options);
+    return new Routine(label, options);
   },
   test: (label: string, options?: UserRoutineOptions) => {
     return new Test(label, options)
@@ -22,7 +22,7 @@ export const routine = {
     return new Tutorial(label, options)
   },
   // series: (name: string, options: any) => {
-  //   return new BaseRoutine(name, options)
+  //   return new Routine(name, options)
   // },
   
 }

@@ -6,13 +6,13 @@ Targeted features:
 
 * Typescript
 * Use builder pattern (inspiration: Zod, Leaflet)
-* Use composition instead of inheritance
+* Use composition instead of inheritance (inspiration: https://hashnode.com/post/rusty-composition-in-typescript-cjo8g6y6b004hlxs1sabgzuzd)
 * Session storage for multi-page user routines
 
 Naming - is User Routine a good name? More options:
 
 * TARI - Task Automation and Routine Interface
-* You Routine / you-routine
+* browserflow
 
 ## Progress notes
 
@@ -27,9 +27,9 @@ Naming - is User Routine a good name? More options:
 
 ```typescript
 
-/* Thoughts 2023-06-18 */
+/* Thoughts 2024 */
 
-import { routine } from 'user-routine'
+import { routine } from 'userroutine';
 
 routine.test('Should show all actions')
   .await('selector', 'text?')
@@ -39,43 +39,47 @@ routine.test('Should show all actions')
   .existsNot('selector', 'text?')
   .log('message')
   .nav('url')
-  .note('selector', 'message')
-  .type('selector', 'value')
+  .say('selector', 'message')
   .valueIs('input', 'value')
   .valueIsNot('input', 'value')
+  .write('selector', 'value')
 
   .run(); /* async */
-  .toJSON() // ?
 
-routine.tutorial()
+  .toJSON(); // Yield exec form JSON object?
 
-routine.actions()
-  .click()
-  .run()
+  .toString(); // Yield string of exec form JSON object?
 
-routine.action.click()
+// What can you do with routines?
+routine.test() // Test a routine (shows controls in the top right and allows pausing/stopping by default)
+routine.demo() // Show off a routine (shows visual tooltips by default)
+routine.tutorial() // Walk a user through a routine (with click to continue)
+routine.list() // Define a list of actions for later
 
-routine.run([
-  routineOne,
-  routineTwo
-])
+routine.action.click() // one-off actions could be called like this
 
-// maybe .start or .run at the end?
+const waitAndClickRoutine = routine.list().wait().click();
+routine.test().wait().include(waitAndClickRoutine).run();
+routine.test().loop(waitAndClickRoutine, 5).run();
+routine.test().loopUntil(waitAndClickRoutine, routine.action.exists()).run();
+
+const routine1 = routine.list().click().await().click();
+const routine2 = routine.list().await().click().await();
+const routine1And2 = routine.test()
+  .include(routine1)
+  .include(routine2)
+  .loop(routine1, 3)
+  .run();
+
 routine.test()
-  .stuff()
-  .run() // or .start()
+  .loopUntil(routine1And2, routine.action.await())
+  .run();
 
-// or maybe use action set
+// The following could be ways to run a routine too
+routine1.run()
+routine.runAll([routine1, routine2]);
 
-let actionSet = routine.actionSet('Do thing')
-  .click()
-  .write()
-
-routine.test('Should y')
-  .include(actionSet)
-  .run()
-
-// Executive form, also useful for routine storage and transfer
+// Executive form, useful for routine storage, transfer, etc
 const actions = [
   ['write', 'input', 'hi'],
   ['click', '.btn'],

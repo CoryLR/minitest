@@ -2,7 +2,7 @@ import { ActionResult } from "../models/action";
 import { DEFAULT_ROUTINE_CONFIG } from "../models/routine";
 import { DomUtil } from "./DomUtil";
 import { Time } from "./Time";
-import { round } from "./miscelanneous-util";
+import { round } from "./MiscUtil";
 
 export class Action {
 
@@ -27,13 +27,14 @@ export class Action {
     const selectorWasFound = await Time.loop(duration, interval, () => Action.checkExists(selector, textConstraint), true);
     const stop = performance.now();
     const seconds = round(stop - startTime, 1).toFixed(1);
-    const messageParts = [
-      `Selector "${selector}"` + textConstraint ? `containing text "${textConstraint}"` : '',
-      selectorWasFound ? 'was found' : 'was not found',
-      `after ${seconds} seconds`,
-    ];
+    const message = 
+      `Selector "${selector}"`
+      + textConstraint ? ` containing text "${textConstraint}"` : ''
+      + selectorWasFound ? ' was' : ' was not'
+      + ` found after ${seconds} seconds`
+    ;
     result.success = selectorWasFound;
-    result.message = messageParts.join(' ');
+    result.message = message;
     return result;
   }
 
@@ -41,16 +42,16 @@ export class Action {
     const result = Action.getEmptyActionResult();
     const stop = performance.now();
     const seconds = round(stop - startTime, 1).toFixed(1);
-    const messageParts = [
-      `Await for selector "${selector}"` + textConstraint ? `containing text "${textConstraint}"` : '',
-      `stopped after ${seconds} seconds due to unexpected error: "${errorMessage}"`,
-    ];
+    const message = 
+      `Await for selector "${selector}"`
+      + textConstraint ? ` containing text "${textConstraint}"` : ''
+      + ` stopped after ${seconds} seconds due to unexpected error: "${errorMessage}"`
+    ;
     result.success = false;
-    result.message = messageParts.join(' ');
+    result.message = message;
     result.error = errorMessage;
     return result;
   }
-
 
   public static async awaitNot(selector: string, textConstraint: string, interval = DEFAULT_ROUTINE_CONFIG.globalDelay, duration = DEFAULT_ROUTINE_CONFIG.awaitTimeout): Promise<ActionResult> {
     const start = performance.now();
@@ -66,13 +67,14 @@ export class Action {
     const selectorNotFound = await Time.loop(duration, interval, () => Action.checkExistsNot(selector, textConstraint), true);
     const stop = performance.now();
     const seconds = round(stop - startTime, 1).toFixed(1);
-    const messageParts = [
-      `Selector "${selector}"` + textConstraint ? `containing text "${textConstraint}"` : '',
-      selectorNotFound && Number(seconds) === 0 ? 'was not found' : selectorNotFound ? 'disappeared' : 'still appeared',
-      `after ${seconds} seconds`,
-    ];
+    const message = 
+      `Selector "${selector}"`
+      + textConstraint ? ` containing text "${textConstraint}"` : ''
+      + selectorNotFound && Number(seconds) === 0 ? ' was not found' : selectorNotFound ? ' disappeared' : ' still appeared'
+      + ` after ${seconds} seconds`
+    ;
     result.success = selectorNotFound;
-    result.message = messageParts.join(' ');
+    result.message = message;
     return result;
   }
 
@@ -80,12 +82,13 @@ export class Action {
     const result = Action.getEmptyActionResult();
     const stop = performance.now();
     const seconds = round(stop - startTime, 1).toFixed(1);
-    const messageParts = [
-      `Await for selector "${selector}"` + textConstraint ? `containing text "${textConstraint}"` : '' + 'to disappear',
-      `stopped after ${seconds} seconds due to unexpected error: "${errorMessage}"`,
-    ];
+    const message = 
+      `Await for selector "${selector}"`
+      + textConstraint ? ` containing text "${textConstraint}"` : ''
+      + ` to disappear stopped after ${seconds} seconds due to unexpected error: "${errorMessage}"`
+    ;
     result.success = false;
-    result.message = messageParts.join(' ');
+    result.message = message;
     result.error = errorMessage;
     return result;
   }
@@ -123,10 +126,6 @@ export class Action {
     const success = DomUtil.sendClickEvent(element);
     return success;
   }
-
-  public static async comment() {
-    
-  }
   
   public static checkExists(selector: string, textConstraint: string) {
     const element = DomUtil.getElement(selector, textConstraint);
@@ -138,7 +137,7 @@ export class Action {
     return !Boolean(element);
   }
 
-  public static fill(selector: string, newValue: string | number) {
+  public static write(selector: string, newValue: string | number) {
     const element = DomUtil.getElement(selector);
     return DomUtil.setValue(element as HTMLInputElement, String(newValue));
   }
@@ -161,6 +160,10 @@ export class Action {
   public static async wait(duration: number) {
     await Time.sleep(duration);
     return true;
+  }
+
+  public static async say() {
+    
   }
 
   //comment, log, write?

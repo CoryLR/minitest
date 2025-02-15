@@ -1,10 +1,10 @@
 import { ActionExpression } from "../models/action";
 import { Manifest, UserRoutineOptions } from "../models/routine";
-import { BaseRoutine } from "./BaseRoutine";
+import { Routine } from "./Routine";
 
-export class Test extends BaseRoutine {
+export class Test extends Routine {
 
-  protected manifest: Manifest = super.manifest;
+  protected manifest: Manifest;
   state = {
     continueActions: true,
     currentStep: 0,

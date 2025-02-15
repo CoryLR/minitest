@@ -28,7 +28,7 @@ export class Time {
     return false
   }
 
-  // Recreate a basic/simple observable so that something can happen when something else finishes asynchronously
+  // TODO: Maybe recreate a basic/simple observable so that something can happen when something else finishes asynchronously
   // public static pinkyPromise() {
 
   // }
