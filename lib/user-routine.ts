@@ -383,8 +383,6 @@ export async function userRoutine(actions: UserRoutineAction[] | string, options
       } else if (!found && notOperator) {
         log(`...${awaitingTarget} disappeared`);
       }
-    } else if (action === '') {
-      /* Do nothing, just add an extra globalDelay */
     } else {
       await raiseError('Action string keyword not recognized, got', action);
     }
